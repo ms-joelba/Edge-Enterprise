@@ -126,6 +126,14 @@ This is a known issue in Microsoft Edge and other applications that use WAM (tha
 - Use Microsoft Edge via a Remote Desktop to the Citrix Host instead of a seamless remote application.
 - Use Azure Virtual Desktop remote apps instead, which has mitigations for this issue.
 
+### Microsoft Edge hangs when launched from concurrent Windows logon sessions on the same machine
+
+This behavior is expected to occur when Microsoft Edge is launched by the same user, in a separate logon session, and utilizes the same profile data folder ("user-data-dir") location.  The first instance of Microsoft Edge will lock the user-data-dir location, preventing access from instances running in other sessions.  
+
+To mitigate this issue, it is recommended to configure the Microsoft Edge [UserDataDir](https://docs.microsoft.com/deployedge/microsoft-edge-policies#userdatadir) group policy to specify a path that is based on the unique user session. 
+
+For example: a policy value of  "${profile}/Edge/${session_name}" will set the path to an Edge sub-directory named for the current user logon session.  
+
 ## See also
 
 - [Microsoft Edge Enterprise landing page](https://aka.ms/EdgeEnterprise)
